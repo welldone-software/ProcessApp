@@ -1,0 +1,43 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "globals": {
+    "alert": true,
+    "fetch": true
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {},
+      "react-native": {}
+    }
+  },
+  "rules": {
+    "padded-blocks": ["off"],
+    "global-require": ["off"],
+    "max-len": ["error", 120],
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"],
+    "arrow-parens": ["off"],
+    "arrow-body-style": ["off"],
+    "no-unused-expressions": ["off"],
+    "no-unused-vars": ["error", { "args": "none" }],
+    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    "no-mixed-operators": ["off"],
+    "no-shadow": ["off"],
+    "class-methods-use-this": ["off"],
+    "no-use-before-define": ["error", { "classes": false }],
+    "quote-props": ["off"],
+    "jsx-quotes": ["error", "prefer-single"],
+    "react/sort-comp": ["off"],
+    "react/prop-types": ["off"],
+    "react/forbid-prop-types": ["off"],
+    "react/jsx-double-quote": ["off"],
+    "react/jsx-tag-spacing": ["off"],
+    "react/jsx-indent": ["off"],
+    "react/jsx-first-prop-new-line": ["off"],
+    "react/jsx-wrap-multilines": ["off"],
+    "react/jsx-filename-extension": ["off"],
+    "react/prefer-stateless-function": ["off"],
+    "jsx-a11y/href-no-hash": ["off"]
+  }
+}
