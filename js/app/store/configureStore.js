@@ -1,14 +1,24 @@
 import { combineReducers, createStore } from 'redux'
-import { goals, memories } from './reducers'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+import * as reducers from './reducers'
+
+const persistConfig = {
+  key: 'root',
+  storage,
+}
 
 export default function configureStore(navigation) {
   const rootReducer = combineReducers({
-    goals,
-    memories,
+    ...reducers,
     navigation,
   })
 
-  const store = createStore(rootReducer)
+  const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-  return store
+  const store = createStore(persistedReducer)
+  const persistor = persistStore(store)
+
+  return { store, persistor }
 }
