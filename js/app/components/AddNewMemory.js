@@ -1,25 +1,22 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, Button } from 'react-native'
 import { FormLabel, CheckBox } from 'react-native-elements'
 import { upperFirst, uniqueId } from 'lodash'
-import styled from 'styled-components/native'
 import { connect } from 'react-redux'
 import { Notifications } from 'expo'
 import { addMemory } from '../store/actions'
 import Container from '../shared/Container'
-import DoneButton from '../shared/DoneButton'
 import FormItem from '../shared/FormItem'
 
-const ValidationText = styled.Text`
-  margin-left: 20; 
-  margin-top: 30; 
-  color: red;
-`
 
 class AddNewMemory extends React.Component {
 
+  static navigationOptions = ({ navigation: { state: { params } } }) => ({
+    headerRight: <Button title='Save' onPress={() => params && params.save()} />,
+  })
+
   state = {
-    memory: 'test_memory',
+    memory: '',
     frequency: 'day',
     timestamp: new Date(),
     valid: true,
@@ -34,7 +31,13 @@ class AddNewMemory extends React.Component {
     this.setState({ [key]: text })
   }
 
-  validate = () => {
+  componentDidMount() {
+    this.props.navigation.setParams({
+      save: this.save,
+    })
+  }
+
+  save = () => {
     const { memory, frequency, timestamp } = this.state
     if(memory === '') {
       this.setState({ valid: false })
@@ -104,16 +107,7 @@ class AddNewMemory extends React.Component {
                 checkedColor='#F6C143'
               />)
           }
-
-          {
-            !valid &&
-            <ValidationText>
-              * All fields are mandatory
-            </ValidationText>
-          }
         </View>
-
-        <DoneButton validate={this.validate}/>
       </Container>
     )
   }
