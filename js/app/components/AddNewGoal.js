@@ -12,20 +12,6 @@ class AddNewGoal extends React.Component {
     headerRight: <Button title='Save' onPress={() => params && params.save()} />,
   })
 
-  //   navigationOptions: {
-  //     header: ({state}) => {
-  //       console.log('state')
-  //         // // get the "deepest" current params.
-  //         // const currentParams = getCurrentParams(state);
-
-  //         // const left = currentParams.left;
-  //         // const right = currentParams.right;
-  //         // const style = currentParams.style;
-  //         // const tintColor = currentParams.tintColor;
-  //         // return { left, right, style, tintColor };
-  //     }
-  //  }
-
   componentDidMount() {
     this.props.navigation.setParams({
       save: this.save,

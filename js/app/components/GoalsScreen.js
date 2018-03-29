@@ -1,4 +1,5 @@
 import React from 'react'
+import { Alert } from 'react-native'
 import { Slider } from 'react-native-elements'
 import { connect } from 'react-redux'
 import styled from 'styled-components/native'
@@ -6,10 +7,18 @@ import { Ionicons } from '@expo/vector-icons'
 import Container from '../shared/Container'
 import RightAddButton from '../shared/RightAddButton'
 import SettingsMenu from '../shared/SettingsMenu'
+import DeleteButtonBase from '../shared/DeleteButton'
 import { ItemContainer, List, ListText } from '../shared/style'
+import { removeGoal, updateGoal } from '../store/actions'
 
 const SliderValue = styled.Text`
   margin-bottom:5;
+`
+
+const DeleteButton = styled(DeleteButtonBase)`
+  position: absolute;
+  top: -1px;
+  right: 1px;
 `
 
 class GoalsScreen extends React.Component {
@@ -34,7 +43,8 @@ class GoalsScreen extends React.Component {
     this.setState({ goalsList: this.props.goals })
   }
 
-  onSliderValueChange = (newVal, currentVal, id) => {
+  onSliderValueChange = (newVal, item) => {
+    const {sliderValue, id} = item
     const newArr = [...this.state.goalsList]
     newArr.map((goal) => {
       if (goal.id === id) {
@@ -48,17 +58,32 @@ class GoalsScreen extends React.Component {
 
   renderGoal = ({ item }) => (
     <ItemContainer>
-      <ListText>
-        {item.aspiration}
-      </ListText>
+      <DeleteButton onPress={() => this.props.removeGoal(item)}/>
+      <ListText>{item.aspiration}</ListText>
 
       <Slider
-        value={0}
-        onValueChange={(newVal) => this.onSliderValueChange(newVal, item.value, item.id)}
+        value={item.sliderValue || 0}
+        onValueChange={newVal => this.onSliderValueChange(newVal, item)}
         minimumValue={0}
         maximumValue={20}
-        onSlidingStart={() => this.setState({ scrollEnabled: false })}
-        onSlidingComplete={() => this.setState({ scrollEnabled: true })}
+        onSlidingStart={() => {
+          this.setState({ scrollEnabled: false, [item.id]: item.sliderValue })
+        }}
+        onSlidingComplete={() => {
+          this.setState({ scrollEnabled: true })
+          if (this.state[item.id] < 10 && item.sliderValue >= 10) {
+            Alert.alert(
+              'Excelent!',
+              'You are half way through, want to text your trainer to brag?',
+              [
+                {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'Yes', onPress: () => console.log('OK Pressed')},
+              ],
+              { cancelable: false }
+            )
+          }
+          this.props.updateGoal(item)
+        }}
         step={1}
         thumbTintColor='#DF8244'
         style={{ width: '90%' }}
@@ -88,4 +113,4 @@ class GoalsScreen extends React.Component {
 // }), {})(GoalsScreen)
 export default connect(({ goals }) => ({
   goals,
-}), {})(GoalsScreen)
+}), {removeGoal, updateGoal})(GoalsScreen)

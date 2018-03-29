@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/native'
+import * as Animatable from 'react-native-animatable'
 import { connect } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons'
 import {
@@ -20,10 +21,12 @@ const Content = styled.View`
   background-color: #fff;
 `
 
+const AnimatableContent = Animatable.createAnimatableComponent(Content)
+
 const CustomMenu = ({ style, children, ...other }) => (
-  <Content {...other}>
+  <AnimatableContent {...other} animation="bounceIn">
     {children}
-  </Content>
+  </AnimatableContent>
 )
 
 const SettingsMenu = ({setUser, navigation}) => (
@@ -45,6 +48,4 @@ const SettingsMenu = ({setUser, navigation}) => (
   </MenuProvider>
 )
 
-const enhace = connect(null, {setUser})
-
-export default enhace(SettingsMenu)
+export default connect(null, {setUser})(SettingsMenu)
