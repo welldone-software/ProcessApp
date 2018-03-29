@@ -7,12 +7,6 @@ import Container from '../shared/Container'
 import FormItem from '../shared/FormItem'
 import { addGoal } from '../store/actions'
 
-const ValidationText = styled.Text`
-  margin-left: 20;
-  margin-top: 30;
-  color: red;
-`
-
 class AddNewGoal extends React.Component {
   static navigationOptions = ({ navigation: { state: { params } } }) => ({
     headerRight: <Button title='Save' onPress={() => params && params.save()} />,
@@ -47,7 +41,6 @@ class AddNewGoal extends React.Component {
       then: '',
       timestamp: new Date(),
     },
-    valid: true,
   }
 
   onChange = (newVal, key) => {
@@ -64,7 +57,7 @@ class AddNewGoal extends React.Component {
       return
     }
     const id = Math.random()
-    this.setState({ valid: true }, () => this.props.addGoal({ ...goal, id, sliderValue: 0 }))
+    this.props.addGoal({ ...goal, id, sliderValue: 0 })
     this.backToList()
   }
 
@@ -73,7 +66,7 @@ class AddNewGoal extends React.Component {
   }
 
   render() {
-    const { goal, valid } = this.state
+    const { goal} = this.state
     return (
       <Container style={{ justifyContent: 'space-between' }}>
         <View>

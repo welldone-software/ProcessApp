@@ -19,7 +19,6 @@ class AddNewMemory extends React.Component {
     memory: '',
     frequency: 'day',
     timestamp: new Date(),
-    valid: true,
   }
 
   onPress = (val) => {
@@ -39,13 +38,12 @@ class AddNewMemory extends React.Component {
 
   save = () => {
     const { memory, frequency, timestamp } = this.state
-    if(memory === '') {
-      this.setState({ valid: false })
+    if (memory === '') {
+      alert('All fields are required')
       return
     }
     const id = Math.random()
-    this.setState({ valid: true },
-      () => this.props.addMemory({ memory, frequency, timestamp, id }))
+    this.props.addMemory({ memory, frequency, timestamp, id })
     this.backToList()
     this.schedulePushNotifications({ memory, frequency, timestamp, id })
   }
@@ -81,7 +79,7 @@ class AddNewMemory extends React.Component {
   }
 
   render() {
-    const { memory, frequency, valid } = this.state
+    const { memory, frequency } = this.state
     const frequencies = ['day', 'week', 'month']
     return (
       <Container style={{ justifyContent: 'space-between' }}>
