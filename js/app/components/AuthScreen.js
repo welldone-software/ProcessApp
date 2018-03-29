@@ -35,10 +35,8 @@ class AuthScreen extends React.Component {
   _loginWithAuth0 = async () => {
     const redirectUrl = AuthSession.getRedirectUrl()
     const authUrl = `${auth0Domain}/authorize${toQueryString(getAuth0Params(redirectUrl))}`
-    console.log({ authUrl, redirectUrl })
     const result = await AuthSession.startAsync({ authUrl })
 
-    console.log(result)
     if (result.type === 'success') {
       this.handleParams(result.params)
     }

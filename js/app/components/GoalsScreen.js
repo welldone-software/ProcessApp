@@ -5,6 +5,7 @@ import styled from 'styled-components/native'
 import { Ionicons } from '@expo/vector-icons'
 import Container from '../shared/Container'
 import RightAddButton from '../shared/RightAddButton'
+import SettingsMenu from '../shared/SettingsMenu'
 import { ItemContainer, List, ListText } from '../shared/style'
 
 const SliderValue = styled.Text`
@@ -14,6 +15,7 @@ const SliderValue = styled.Text`
 class GoalsScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     headerRight: <RightAddButton navigation={navigation} pageName='AddNewGoal'/>,
+    headerLeft: <SettingsMenu navigation={navigation}/>,
     tabBarIcon: ({focused, tintColor}) => <Ionicons name="ios-list-box-outline" size={32} color={focused ? tintColor : 'black'}/>
   })
 
