@@ -36,16 +36,16 @@ class AddNewMemory extends React.Component {
     })
   }
 
-  save = () => {
+  save = async () => {
     const { memory, frequency, timestamp } = this.state
     if (memory === '') {
       alert('All fields are required')
       return
     }
     const id = Math.random()
-    this.props.addMemory({ memory, frequency, timestamp, id })
+    const notificationId = await this.schedulePushNotifications({ memory, frequency, timestamp, id })
+    this.props.addMemory({ memory, frequency, timestamp, id, notificationId })
     this.backToList()
-    this.schedulePushNotifications({ memory, frequency, timestamp, id })
   }
 
   schedulePushNotifications = (data) => {
@@ -71,7 +71,7 @@ class AddNewMemory extends React.Component {
       repeat: 'day',
     }
 
-    Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions)
+    return Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions)
   }
 
   backToList = () => {

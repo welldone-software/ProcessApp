@@ -10,6 +10,7 @@ export const ItemContainer = styled.View`
   align-items: center;
   height:120px;
   padding: 10px;
+  background-color: #fff;
 `
 
 export const List = styled.FlatList`

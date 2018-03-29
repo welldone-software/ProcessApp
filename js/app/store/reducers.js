@@ -23,6 +23,8 @@ export const memories = (state = [], { type, payload }) => {
   switch (type) {
     case actions.addMemory.TYPE:
       return [...state, payload]
+    case actions.removeMemory.TYPE:
+      return state.filter(item => item.id !== payload.id)
     default:
       return state
   }
