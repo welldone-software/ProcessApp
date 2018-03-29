@@ -8,12 +8,13 @@ const AddButton = styled.TouchableOpacity`
   margin-right: 10;
   border-radius: 30;
   align-items: center;
-  justify-content: center;    
+  justify-content: center;
 `
 
 const AddPlus = styled.Text`
-  font-size:20; 
-  color: white;  
+  font-size: 20;
+  line-height: 20;
+  color: white;
 `
 
 export default RightAddButton = ({ navigation, pageName }) => {
