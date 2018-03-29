@@ -9,8 +9,8 @@ import FormItem from '../shared/FormItem'
 import { addGoal } from '../store/actions'
 
 const ValidationText = styled.Text`
-  margin-left: 20; 
-  margin-top: 30; 
+  margin-left: 20;
+  margin-top: 30;
   color: red;
 `
 
@@ -44,8 +44,7 @@ class AddNewGoal extends React.Component {
       }
     }
     const id = uniqueId()
-    this.setState({ valid: true }, () =>
-      this.props.addGoal({ ...goal, id, sliderValue: 0 }))
+    this.setState({ valid: true }, () => this.props.addGoal({ ...goal, id, sliderValue: 0 }))
     this.backToList()
   }
 
