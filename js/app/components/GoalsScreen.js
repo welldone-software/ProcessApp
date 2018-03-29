@@ -28,6 +28,10 @@ class GoalsScreen extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.setState({ goalsList: this.props.goals })
+  }
+
   onSliderValueChange = (newVal, currentVal, id) => {
     const newArr = [...this.state.goalsList]
     newArr.map((goal) => {
@@ -40,28 +44,26 @@ class GoalsScreen extends React.Component {
     }
   }
 
-  renderGoal = ({ item }) => {
-    return (
-      <ItemContainer>
-        <ListText>
-          {item.aspiration}
-        </ListText>
+  renderGoal = ({ item }) => (
+    <ItemContainer>
+      <ListText>
+        {item.aspiration}
+      </ListText>
 
-        <Slider
-          value={0}
-          onValueChange={(newVal) => this.onSliderValueChange(newVal, item.value, item.id)}
-          minimumValue={0}
-          maximumValue={20}
-          onSlidingStart={() => this.setState({ scrollEnabled: false })}
-          onSlidingComplete={() => this.setState({ scrollEnabled: true })}
-          step={1}
-          thumbTintColor='#DF8244'
-          style={{ width: '90%' }}
-        />
-        <SliderValue>Value: {item.sliderValue}</SliderValue>
-      </ItemContainer>
-    )
-  }
+      <Slider
+        value={0}
+        onValueChange={(newVal) => this.onSliderValueChange(newVal, item.value, item.id)}
+        minimumValue={0}
+        maximumValue={20}
+        onSlidingStart={() => this.setState({ scrollEnabled: false })}
+        onSlidingComplete={() => this.setState({ scrollEnabled: true })}
+        step={1}
+        thumbTintColor='#DF8244'
+        style={{ width: '90%' }}
+      />
+      <SliderValue>Value: {item.sliderValue}</SliderValue>
+    </ItemContainer>
+  )
 
   render() {
     const { goalsList, scrollEnabled } = this.state
@@ -70,7 +72,7 @@ class GoalsScreen extends React.Component {
     <Container style={{ alignItems: 'center' }}>
       <List
         data={goalsList}
-        keyExtractor={(item) => item.id}
+        keyExtractor={item => item.id}
         scrollEnabled={scrollEnabled}
         renderItem={this.renderGoal}
       />
@@ -79,6 +81,9 @@ class GoalsScreen extends React.Component {
   }
 }
 
+// export default connect(state => console.log(state) || ({
+//   goals: state.goals
+// }), {})(GoalsScreen)
 export default connect(({ goals }) => ({
   goals,
 }), {})(GoalsScreen)

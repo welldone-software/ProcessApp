@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Button } from 'react-native'
 import { FormLabel, CheckBox } from 'react-native-elements'
-import { upperFirst, uniqueId } from 'lodash'
+import { upperFirst } from 'lodash'
 import { connect } from 'react-redux'
 import { Notifications } from 'expo'
 import { addMemory } from '../store/actions'
@@ -43,7 +43,7 @@ class AddNewMemory extends React.Component {
       this.setState({ valid: false })
       return
     }
-    const id = uniqueId()
+    const id = Math.random()
     this.setState({ valid: true },
       () => this.props.addMemory({ memory, frequency, timestamp, id }))
     this.backToList()

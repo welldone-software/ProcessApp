@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Button } from 'react-native'
-import { map, pick, uniqueId } from 'lodash'
+import { map, pick } from 'lodash'
 import styled from 'styled-components/native'
 import { connect } from 'react-redux'
 import Container from '../shared/Container'
@@ -63,7 +63,7 @@ class AddNewGoal extends React.Component {
       alert('All fields are required')
       return
     }
-    const id = uniqueId()
+    const id = Math.random()
     this.setState({ valid: true }, () => this.props.addGoal({ ...goal, id, sliderValue: 0 }))
     this.backToList()
   }

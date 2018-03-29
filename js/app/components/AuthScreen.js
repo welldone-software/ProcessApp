@@ -72,7 +72,7 @@ class AuthScreen extends React.Component {
           <Text style={styles.title}>Hi {this.props.user}!</Text>
         ) : (
           <View>
-            <Text style={styles.title}>Example: Auth0 login</Text>
+            <Text style={styles.title}>Welcome</Text>
             <Button title='Login with Auth0' onPress={this._loginWithAuth0} />
           </View>
         )}

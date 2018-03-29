@@ -31,6 +31,10 @@ class MemoriesScreen extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.setState({ memoriesList: this.props.memories })
+  }
+
   renderMemory = ({ item }) => {
     return (
       <ItemContainer>
