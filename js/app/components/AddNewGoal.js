@@ -1,10 +1,9 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, Button } from 'react-native'
 import { map, pick, uniqueId } from 'lodash'
 import styled from 'styled-components/native'
 import { connect } from 'react-redux'
 import Container from '../shared/Container'
-import DoneButton from '../shared/DoneButton'
 import FormItem from '../shared/FormItem'
 import { addGoal } from '../store/actions'
 
@@ -15,14 +14,37 @@ const ValidationText = styled.Text`
 `
 
 class AddNewGoal extends React.Component {
+  static navigationOptions = ({ navigation: { state: { params } } }) => ({
+    headerRight: <Button title='Save' onPress={() => params && params.save()} />,
+  })
+
+  //   navigationOptions: {
+  //     header: ({state}) => {
+  //       console.log('state')
+  //         // // get the "deepest" current params.
+  //         // const currentParams = getCurrentParams(state);
+
+  //         // const left = currentParams.left;
+  //         // const right = currentParams.right;
+  //         // const style = currentParams.style;
+  //         // const tintColor = currentParams.tintColor;
+  //         // return { left, right, style, tintColor };
+  //     }
+  //  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      save: this.save,
+    })
+  }
 
   state = {
     goal: {
-      aspiration: 'test_aspiration',
-      value: 'test_value',
-      barrier: 'test_barrier',
-      whenIf: 'test_whenIf',
-      then: 'test_then',
+      aspiration: '',
+      value: '',
+      barrier: '',
+      whenIf: '',
+      then: '',
       timestamp: new Date(),
     },
     valid: true,
@@ -34,14 +56,12 @@ class AddNewGoal extends React.Component {
     this.setState({ goal: { ...goal, [key]: text } })
   }
 
-  validate = () => {
+  save = () => {
     const { goal } = this.state
     const values = Object.values(goal)
-    for (let i = 0; i < values.length; i++) {
-      if (values[i] === '') {
-        this.setState({ valid: false })
-        return
-      }
+    if (values.findIndex(v => v === '') !== -1) {
+      alert('All fields are required')
+      return
     }
     const id = uniqueId()
     this.setState({ valid: true }, () => this.props.addGoal({ ...goal, id, sliderValue: 0 }))
@@ -57,14 +77,9 @@ class AddNewGoal extends React.Component {
     return (
       <Container style={{ justifyContent: 'space-between' }}>
         <View>
-          {
-            map(
-              pick(goal, ['aspiration', 'value', 'barrier']),
-              (value, key) => (
-                <FormItem key={key} label={key} value={value} onChange={this.onChange}/>
-              ),
-              )
-          }
+          {map(pick(goal, ['aspiration', 'value', 'barrier']), (value, key) => (
+            <FormItem key={key} label={key} value={value} onChange={this.onChange} />
+          ))}
 
           <FormItem
             label='Implementation plan When/If'
@@ -73,22 +88,8 @@ class AddNewGoal extends React.Component {
             onChangeKey='whenIf'
           />
 
-          <FormItem
-            label='Then'
-            value={goal.then}
-            onChange={this.onChange}
-            onChangeKey='then'
-          />
-
-          {
-            !valid &&
-            <ValidationText>
-              * All fields are mandatory
-            </ValidationText>
-          }
+          <FormItem label='Then' value={goal.then} onChange={this.onChange} onChangeKey='then' />
         </View>
-
-        <DoneButton validate={this.validate}/>
       </Container>
     )
   }

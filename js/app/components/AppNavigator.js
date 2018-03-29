@@ -3,6 +3,7 @@ import GoalsScreen from './GoalsScreen'
 import AddNewGoal from './AddNewGoal'
 import AddNewMemory from './AddNewMemory'
 import MemoriesScreen from './MemoriesScreen'
+import AuthScreen from './AuthScreen';
 
 const AppNavigator = StackNavigator({
   Tabs: {
@@ -27,4 +28,24 @@ const AppNavigator = StackNavigator({
   },
 })
 
-export default AppNavigator
+
+const RootNavigator = StackNavigator(
+  {
+    Auth: {
+      screen: AuthScreen,
+    },
+
+    App: {
+      screen: AppNavigator,
+    },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+    navigationOptions: {
+      gesturesEnabled: false,
+    },
+  },
+)
+
+export default RootNavigator
