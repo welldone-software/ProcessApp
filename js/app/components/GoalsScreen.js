@@ -4,6 +4,7 @@ import { Slider } from 'react-native-elements'
 import { connect } from 'react-redux'
 import styled from 'styled-components/native'
 import { Ionicons } from '@expo/vector-icons'
+import NoItems from '../shared/NoItems'
 import Container from '../shared/Container'
 import RightAddButton from '../shared/RightAddButton'
 import SettingsMenu from '../shared/SettingsMenu'
@@ -97,12 +98,14 @@ class GoalsScreen extends React.Component {
 
     return (
     <Container style={{ alignItems: 'center' }}>
+      { goalsList.length  ?
       <List
         data={goalsList}
         keyExtractor={item => item.id}
         scrollEnabled={scrollEnabled}
         renderItem={this.renderGoal}
-      />
+      /> : <NoItems itemName="goal"/>
+      }
     </Container>
     )
   }

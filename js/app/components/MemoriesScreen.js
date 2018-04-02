@@ -2,10 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { upperFirst } from 'lodash'
 import { Ionicons } from '@expo/vector-icons'
+// import SettingsMenu from '../shared/SettingsMenu'
 import styled from 'styled-components/native'
 import { Notifications } from 'expo'
 import Container from '../shared/Container'
 import RightAddButton from '../shared/RightAddButton'
+import NoItems from '../shared/NoItems'
 import DeleteButtonBase from '../shared/DeleteButton'
 import { ItemContainer, List, ListText } from '../shared/style'
 import { removeMemory } from '../store/actions'
@@ -27,6 +29,7 @@ class MemoriesScreen extends React.Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
     headerRight: <RightAddButton navigation={navigation} pageName='AddNewMemory'/>,
+    // headerLeft: <SettingsMenu navigation={navigation}/>,
     tabBarIcon: ({focused, tintColor}) => <Ionicons name="ios-bookmark-outline" size={32} color={focused ? tintColor : 'black'}/>
   })
 
@@ -67,11 +70,12 @@ class MemoriesScreen extends React.Component {
 
     return (
       <Container style={{ alignItems: 'center' }}>
+        { memoriesList.length ?
         <List
           data={memoriesList}
           keyExtractor={(item) => item.id}
           renderItem={this.renderMemory}
-        />
+        /> : <NoItems itemName="memory"/> }
       </Container>
     )
   }
