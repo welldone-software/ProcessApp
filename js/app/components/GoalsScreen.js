@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons'
 import NoItems from '../shared/NoItems'
 import Container from '../shared/Container'
 import RightAddButton from '../shared/RightAddButton'
-import SettingsMenu from '../shared/SettingsMenu'
+import AboutButton from '../shared/AboutButton'
 import DeleteButtonBase from '../shared/DeleteButton'
 import { ItemContainer, List, ListText } from '../shared/style'
 import { removeGoal, updateGoal } from '../store/actions'
@@ -25,7 +25,7 @@ const DeleteButton = styled(DeleteButtonBase)`
 class GoalsScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     headerRight: <RightAddButton navigation={navigation} pageName='AddNewGoal'/>,
-    headerLeft: <SettingsMenu navigation={navigation}/>,
+    headerLeft: <AboutButton navigation={navigation}/>,
     tabBarIcon: ({focused, tintColor}) => <Ionicons name="ios-list-box-outline" size={32} color={focused ? tintColor : 'black'}/>
   })
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { upperFirst } from 'lodash'
 import { Ionicons } from '@expo/vector-icons'
-// import SettingsMenu from '../shared/SettingsMenu'
+import AboutButton from '../shared/AboutButton'
 import styled from 'styled-components/native'
 import { Notifications } from 'expo'
 import Container from '../shared/Container'
@@ -29,7 +29,7 @@ class MemoriesScreen extends React.Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
     headerRight: <RightAddButton navigation={navigation} pageName='AddNewMemory'/>,
-    // headerLeft: <SettingsMenu navigation={navigation}/>,
+    headerLeft: <AboutButton navigation={navigation}/>,
     tabBarIcon: ({focused, tintColor}) => <Ionicons name="ios-bookmark-outline" size={32} color={focused ? tintColor : 'black'}/>
   })
 

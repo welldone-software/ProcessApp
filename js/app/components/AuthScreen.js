@@ -29,7 +29,7 @@ class AuthScreen extends React.Component {
   }
 
   goToApp() {
-    this.props.navigation.navigate('App')
+    this.props.navigation.navigate('AppWithModal')
   }
 
   _loginWithAuth0 = async () => {
