@@ -1,16 +1,40 @@
 import React from 'react'
 import {View, Text, Button} from 'react-native'
+import { connect } from 'react-redux'
+import { setUser } from '../store/actions'
+import styled from 'styled-components/native'
+import { Entypo } from '@expo/vector-icons'
 
-export default class ModalScreen extends React.Component {
+const StyledButton = styled.TouchableOpacity``
+
+const CloseButton = ({ style, onPress }) => (
+  <StyledButton style={style} onPress={onPress}>
+    <Entypo name='cross' size={30} color='#DF8244' />
+  </StyledButton>
+)
+
+class ModalScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontSize: 30 }}>This is a modal!</Text>
-        <Button
-          onPress={() => this.props.navigation.goBack()}
-          title="Dismiss"
-        />
+      <View style={{flex: 1}}>
+        <View style={{marginTop: 40, alignItems: 'flex-end', justifyContent: 'flex-end'}}>
+        <CloseButton onPress={() => this.props.navigation.goBack()}/>
+        </View>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ fontSize: 16 }}>Logged in as {this.props.user}</Text>
+          <Button
+            style={{ fontSize: 16 }}
+            onPress={() => {
+              this.props.setUser(null);
+              this.props.navigation.navigate('Auth');
+            }}
+            title="Logout"
+          />
+        </View>
       </View>
     );
   }
 }
+
+
+export default connect(({ user }) => console.log({ user }) || { user }, {setUser})(ModalScreen)
