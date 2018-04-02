@@ -64,16 +64,18 @@ class AuthScreen extends React.Component {
   }
 
   render() {
+    if (this.props.user) {
+      return <View />
+    }
     return (
       <View style={styles.container}>
-        {this.props.user ? (
-          <Text style={styles.title}>Hi {this.props.user}!</Text>
-        ) : (
-          <View>
-            <Text style={styles.title}>Welcome</Text>
-            <Button title='Login with Auth0' onPress={this._loginWithAuth0} />
-          </View>
-        )}
+        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 40 }}>
+          <Text style={{ fontSize: 16 }}>Yonatan Primes's</Text>
+          <Text style={{ fontSize: 26 }}>"Process Goal App"</Text>
+        </View>
+        <View>
+          <Button title='Login' onPress={this._loginWithAuth0} />
+        </View>
       </View>
     )
   }
