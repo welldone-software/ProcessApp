@@ -70,7 +70,7 @@ class AuthScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 40 }}>
-          <Text style={{ fontSize: 16 }}>Yonatan Primes's</Text>
+          <Text style={{ fontSize: 16 }}>Yonatan Primes'</Text>
           <Text style={{ fontSize: 26 }}>"Process Goal App"</Text>
         </View>
         <View>

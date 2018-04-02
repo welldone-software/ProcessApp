@@ -22,7 +22,7 @@ class ModalScreen extends React.Component {
         </View>
         <View style={{ flex: 1, alignItems: 'center' }}>
           <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 40,  }}>
-            <Text style={{ fontSize: 16 }}>Yonatan Primes's</Text>
+            <Text style={{ fontSize: 16 }}>Yonatan Primes'</Text>
             <Text style={{ fontSize: 26 }}>"Process Goal App"</Text>
           </View>
           <Text style={{ fontSize: 16, paddingTop: 20 }}>Logged in as {this.props.user}</Text>
