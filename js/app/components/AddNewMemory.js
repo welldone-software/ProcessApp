@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Button } from 'react-native'
+import { View } from 'react-native'
 import { FormLabel, CheckBox } from 'react-native-elements'
 import { upperFirst } from 'lodash'
 import { connect } from 'react-redux'
@@ -7,12 +7,13 @@ import { Notifications } from 'expo'
 import { addMemory } from '../store/actions'
 import Container from '../shared/Container'
 import FormItem from '../shared/FormItem'
+import SaveButton from '../shared/SaveButton'
 
 
 class AddNewMemory extends React.Component {
 
   static navigationOptions = ({ navigation: { state: { params } } }) => ({
-    headerRight: <Button title='Save' onPress={() => params && params.save()} />,
+    headerRight: <SaveButton title='Save' onPress={() => params && params.save()} />,
   })
 
   state = {

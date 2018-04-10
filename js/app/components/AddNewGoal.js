@@ -1,15 +1,15 @@
 import React from 'react'
-import { View, Button } from 'react-native'
+import { View } from 'react-native'
 import { map, pick } from 'lodash'
-import styled from 'styled-components/native'
 import { connect } from 'react-redux'
 import Container from '../shared/Container'
 import FormItem from '../shared/FormItem'
 import { addGoal } from '../store/actions'
+import SaveButton from '../shared/SaveButton'
 
 class AddNewGoal extends React.Component {
   static navigationOptions = ({ navigation: { state: { params } } }) => ({
-    headerRight: <Button title='Save' onPress={() => params && params.save()} />,
+    headerRight: <SaveButton title='Save' onPress={() => params && params.save()} />,
   })
 
   componentDidMount() {
@@ -52,7 +52,7 @@ class AddNewGoal extends React.Component {
   }
 
   render() {
-    const { goal} = this.state
+    const { goal } = this.state
     return (
       <Container style={{ justifyContent: 'space-between' }}>
         <View>
