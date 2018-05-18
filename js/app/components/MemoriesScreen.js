@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { upperFirst } from 'lodash'
-import { Ionicons } from '@expo/vector-icons'
-import AboutButton from '../shared/AboutButton'
+import Icon from 'react-native-vector-icons/Ionicons'
 import styled from 'styled-components/native'
-import { Notifications } from 'expo'
+import AboutButton from '../shared/AboutButton'
+// import { Notifications } from 'expo'
 import Container from '../shared/Container'
 import RightAddButton from '../shared/RightAddButton'
 import NoItems from '../shared/NoItems'
@@ -30,7 +30,7 @@ class MemoriesScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     headerRight: <RightAddButton navigation={navigation} pageName='AddNewMemory'/>,
     headerLeft: <AboutButton navigation={navigation}/>,
-    tabBarIcon: ({focused, tintColor}) => <Ionicons name="ios-bookmark-outline" size={32} color={focused ? tintColor : 'black'}/>
+    tabBarIcon: ({focused, tintColor}) => <Icon name="ios-bookmark-outline" size={32} color={focused ? tintColor : 'black'}/>
   })
 
   state = {
@@ -51,7 +51,7 @@ class MemoriesScreen extends React.Component {
     return (
       <ItemContainer>
         <DeleteButton onPress={() => {
-          Notifications.dismissNotificationAsync(item.notificationId)
+          // Notifications.dismissNotificationAsync(item.notificationId)
           this.props.removeMemory(item)
         }}/>
         <StyledListText>

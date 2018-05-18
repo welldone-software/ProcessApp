@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { Entypo } from '@expo/vector-icons'
+import Icon from 'react-native-vector-icons/Entypo'
 
 const AddButton = styled.TouchableOpacity`
   height: 30;
@@ -14,7 +14,7 @@ const AddButton = styled.TouchableOpacity`
 export default AboutButton = ({ navigation }) => {
   return (
     <AddButton onPress={() => navigation.navigate('About')}>
-      <Entypo name='info' size={30} color='#DF8244' />
+      <Icon name='info' size={30} color='#DF8244' />
     </AddButton>
   )
 }

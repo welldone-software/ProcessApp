@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/native'
 import * as Animatable from 'react-native-animatable'
 import { connect } from 'react-redux'
-import { Ionicons } from '@expo/vector-icons'
+import Icon from 'react-native-vector-icons/Ionicons'
 import {
   Menu,
   MenuProvider,
@@ -33,7 +33,7 @@ const SettingsMenu = ({setUser, navigation}) => (
   <MenuProvider style={{flexDirection: 'column', padding: 8}}>
     <Menu renderer={CustomMenu}>
       <MenuTrigger>
-        <Ionicons name="ios-menu-outline" size={32}/>
+        <Icon name="ios-menu-outline" size={32}/>
       </MenuTrigger>
       <MenuOptions customStyles={{width: 100, marginTop: 5}}>
         <MenuOption

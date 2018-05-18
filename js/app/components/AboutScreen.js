@@ -1,15 +1,15 @@
 import React from 'react'
 import { View, Text, Button } from 'react-native'
 import { connect } from 'react-redux'
-import { setUser } from '../store/actions'
 import styled from 'styled-components/native'
-import { Entypo } from '@expo/vector-icons'
+import Icon from 'react-native-vector-icons/Entypo'
+import { setUser } from '../store/actions'
 
 const StyledButton = styled.TouchableOpacity``
 
 const CloseButton = ({ style, onPress }) => (
   <StyledButton style={style} onPress={onPress}>
-    <Entypo name='cross' size={30} color='#DF8244' />
+    <Icon name='cross' size={30} color='#DF8244' />
   </StyledButton>
 )
 

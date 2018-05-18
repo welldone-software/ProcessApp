@@ -1,7 +1,7 @@
 import React from 'react'
 import { Alert } from 'react-native'
 import styled from 'styled-components/native'
-import { Entypo } from '@expo/vector-icons'
+import Icon from 'react-native-vector-icons/Entypo'
 
 const Button = styled.TouchableOpacity``
 
@@ -18,7 +18,7 @@ const confirmed = onPress => () =>
 
 const DeleteButton = ({ style, onPress }) => (
   <Button style={style} onPress={confirmed(onPress)}>
-    <Entypo name='cross' size={30} color='#DF8244' />
+    <Icon name='cross' size={30} color='#DF8244' />
   </Button>
 )
 

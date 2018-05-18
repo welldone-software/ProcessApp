@@ -1,15 +1,4 @@
 {
-  "expo": {
-   "name": "Process Goal",
-   "icon": "./icon.png",
-   "version": "1.0.0",
-   "slug": "process-goal",
-   "sdkVersion": "25.0.0",
-   "ios": {
-     "bundleIdentifier": "welldonesoftware.processgoalapp"
-   },
-   "android": {
-     "package": "welldonesoftware.processgoalapp"
-   }
-  }
+  "name": "ProcessGoals",
+  "displayName": "ProcessGoals"
 }

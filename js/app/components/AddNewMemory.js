@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { FormLabel, CheckBox } from 'react-native-elements'
 import { upperFirst } from 'lodash'
 import { connect } from 'react-redux'
-import { Notifications } from 'expo'
+// import { Notifications } from 'expo'
 import { addMemory } from '../store/actions'
 import Container from '../shared/Container'
 import FormItem from '../shared/FormItem'
@@ -72,7 +72,7 @@ class AddNewMemory extends React.Component {
       repeat: 'day',
     }
 
-    return Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions)
+    // return Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions)
   }
 
   backToList = () => {

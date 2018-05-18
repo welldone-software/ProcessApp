@@ -1,9 +1,9 @@
 import React from 'react'
 import { Alert } from 'react-native'
 import { Slider } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { connect } from 'react-redux'
 import styled from 'styled-components/native'
-import { Ionicons } from '@expo/vector-icons'
 import NoItems from '../shared/NoItems'
 import Container from '../shared/Container'
 import RightAddButton from '../shared/RightAddButton'
@@ -26,7 +26,7 @@ class GoalsScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     headerRight: <RightAddButton navigation={navigation} pageName='AddNewGoal'/>,
     headerLeft: <AboutButton navigation={navigation}/>,
-    tabBarIcon: ({focused, tintColor}) => <Ionicons name="ios-list-box-outline" size={32} color={focused ? tintColor : 'black'}/>
+    tabBarIcon: ({focused, tintColor}) => <Icon name="ios-list-box-outline" size={32} color={focused ? tintColor : 'black'}/>
   })
 
   state = {

@@ -1,4 +1,4 @@
-import { AuthSession } from 'expo'
+// import { AuthSession } from 'expo'
 import React from 'react'
 import { connect } from 'react-redux'
 import { Alert, Button, StyleSheet, Text, View } from 'react-native'
@@ -33,13 +33,13 @@ class AuthScreen extends React.Component {
   }
 
   _loginWithAuth0 = async () => {
-    const redirectUrl = AuthSession.getRedirectUrl()
-    const authUrl = `${auth0Domain}/authorize${toQueryString(getAuth0Params(redirectUrl))}`
-    const result = await AuthSession.startAsync({ authUrl })
-
-    if (result.type === 'success') {
-      this.handleParams(result.params)
-    }
+    // const redirectUrl = AuthSession.getRedirectUrl()
+    // const authUrl = `${auth0Domain}/authorize${toQueryString(getAuth0Params(redirectUrl))}`
+    // const result = await AuthSession.startAsync({ authUrl })
+    //
+    // if (result.type === 'success') {
+    //   this.handleParams(result.params)
+    // }
   }
 
   handleParams = responseObj => {
