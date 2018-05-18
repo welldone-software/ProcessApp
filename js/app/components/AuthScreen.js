@@ -2,24 +2,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Alert, Button, StyleSheet, Text, View } from 'react-native'
-import jwtDecoder from 'jwt-decode'
+import Auth0 from 'react-native-auth0'
+import config from '../config'
 import { setUser } from '../store/actions'
 
-const auth0Domain = 'https://welldone-diplomat-questionnaire.eu.auth0.com'
-
-const getAuth0Params = redirectUrl => ({
-  client_id: 'jHnzCjTaOmXqEWLaK2R6T9IeaCe9GtEK',
-  response_type: 'token',
-  audience: `${auth0Domain}/userinfo`,
-  scope: 'openid email name',
-  redirect_uri: redirectUrl,
-})
-
-function toQueryString(params) {
-  return `?${Object.entries(params)
-    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-    .join('&')}`
-}
+const auth0 = new Auth0({ domain: config.auth0Domain, clientId: config.authClientId })
 
 class AuthScreen extends React.Component {
   componentWillMount() {
@@ -33,34 +20,22 @@ class AuthScreen extends React.Component {
   }
 
   _loginWithAuth0 = async () => {
-    // const redirectUrl = AuthSession.getRedirectUrl()
-    // const authUrl = `${auth0Domain}/authorize${toQueryString(getAuth0Params(redirectUrl))}`
-    // const result = await AuthSession.startAsync({ authUrl })
-    //
-    // if (result.type === 'success') {
-    //   this.handleParams(result.params)
-    // }
-  }
-
-  handleParams = responseObj => {
-    if (responseObj.error) {
-      Alert.alert('Error', responseObj.error_description || 'something went wrong while logging in')
-      return
-    }
-
-    fetch(`${auth0Domain}/userinfo?access_token=${responseObj.access_token}`)
-      .then(response => {
-        if (response && response.status === 200) {
-          return response.json().then(({ email }) => {
-            this.props.setUser(email)
-            this.goToApp()
-          })
-        }
+    try {
+      const { accessToken } = await auth0.webAuth.authorize({
+        scope: 'openid profile email',
+        audience: `https://${config.auth0Domain}/userinfo`,
+      })
+      const response = await fetch(`https://${config.auth0Domain}/userinfo?access_token=${accessToken}`)
+      if (response && response.status === 200) {
+        const { email } = await response.json()
+        this.props.setUser(email)
+        this.goToApp()
+      } else {
         throw new Error((response && response.error_description) || 'Failed to get email during login')
-      })
-      .catch(err => {
-        Alert.alert('Error', err.message)
-      })
+      }
+    } catch (error) {
+      Alert.alert('Error', error.message)
+    }
   }
 
   render() {

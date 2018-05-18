@@ -6,6 +6,9 @@
     "babel-eslint": "^8.2.2",
     "babel-preset-react-native-stage-0": "^1.0.1",
     "jest-react-native": "^18.0.0",
+    "prettier": "^1.12.1",
+    "prettier-eslint": "^8.8.1",
+    "prettier-eslint-cli": "^4.7.1",
     "react-test-renderer": "16.2.0"
   },
   "scripts": {
@@ -29,6 +32,7 @@
     "react": "16.2.0",
     "react-native": "0.55.4",
     "react-native-animatable": "^1.2.4",
+    "react-native-auth0": "^1.2.2",
     "react-native-elements": "^0.19.0",
     "react-native-popup-menu": "^0.12.3",
     "react-native-vector-icons": "^4.6.0",
