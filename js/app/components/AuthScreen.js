@@ -25,14 +25,9 @@ class AuthScreen extends React.Component {
         scope: 'openid profile email',
         audience: `https://${config.auth0Domain}/userinfo`,
       })
-      const response = await fetch(`https://${config.auth0Domain}/userinfo?access_token=${accessToken}`)
-      if (response && response.status === 200) {
-        const { email } = await response.json()
-        this.props.setUser(email)
-        this.goToApp()
-      } else {
-        throw new Error((response && response.error_description) || 'Failed to get email during login')
-      }
+      const { email } = await auth0.auth.userInfo({ token: accessToken })
+      this.props.setUser(email)
+      this.goToApp()
     } catch (error) {
       Alert.alert('Error', error.message)
     }
