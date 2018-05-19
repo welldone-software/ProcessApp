@@ -1,18 +1,20 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, PushNotificationIOS } from 'react-native'
 import { FormLabel, CheckBox } from 'react-native-elements'
 import { upperFirst } from 'lodash'
 import { connect } from 'react-redux'
-// import { Notifications } from 'expo'
+import PushNotification from 'react-native-push-notification'
 import { addMemory } from '../store/actions'
 import Container from '../shared/Container'
 import FormItem from '../shared/FormItem'
 import SaveButton from '../shared/SaveButton'
 
-
 class AddNewMemory extends React.Component {
-
-  static navigationOptions = ({ navigation: { state: { params } } }) => ({
+  static navigationOptions = ({
+    navigation: {
+      state: { params },
+    },
+  }) => ({
     headerRight: <SaveButton title='Save' onPress={() => params && params.save()} />,
   })
 
@@ -22,7 +24,7 @@ class AddNewMemory extends React.Component {
     timestamp: new Date(),
   }
 
-  onPress = (val) => {
+  onPress = val => {
     this.setState({ frequency: val })
   }
 
@@ -35,6 +37,30 @@ class AddNewMemory extends React.Component {
     this.props.navigation.setParams({
       save: this.save,
     })
+
+    PushNotification.configure({
+      onRegister(token) {
+        console.log('TOKEN:', token)
+      },
+
+      onNotification(notification) {
+        console.log('NOTIFICATION:', notification)
+
+        notification.finish(PushNotificationIOS.FetchResult.NoData)
+      },
+
+      senderID: 'YOUR GCM SENDER ID',
+
+      permissions: {
+        alert: true,
+        badge: true,
+        sound: true,
+      },
+
+      popInitialNotification: true,
+
+      requestPermissions: true,
+    })
   }
 
   save = async () => {
@@ -44,35 +70,38 @@ class AddNewMemory extends React.Component {
       return
     }
     const id = Math.random()
-    const notificationId = await this.schedulePushNotifications({ memory, frequency, timestamp, id })
-    this.props.addMemory({ memory, frequency, timestamp, id, notificationId })
+    const notificationId = await this.schedulePushNotifications({
+      memory,
+      frequency,
+      timestamp,
+      id,
+    })
+    this.props.addMemory({
+      memory,
+      frequency,
+      timestamp,
+      id,
+      notificationId,
+    })
     this.backToList()
   }
 
-  schedulePushNotifications = (data) => {
+  schedulePushNotifications = data => {
+    const time = new Date()
+    time.setSeconds(time.getSeconds() + 10)
     const localNotification = {
       title: 'Memory Reminder',
-      body: data.memory,
-      data,
+      message: data.memory,
       ios: {
         sound: true,
       },
-      android:
-        {
-          sound: true,
-          priority: 'high',
-          sticky: false,
-          vibrate: true,
-        },
-    }
-    const t = new Date()
-    t.setSeconds(t.getSeconds() + 10)
-    const schedulingOptions = {
-      time: t,
-      repeat: 'day',
+      vibrate: true,
+      date: time,
+      playSound: false,
+      repeatType: 'day',
     }
 
-    // return Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions)
+    return PushNotification.localNotificationSchedule(localNotification)
   }
 
   backToList = () => {
@@ -85,27 +114,20 @@ class AddNewMemory extends React.Component {
     return (
       <Container style={{ justifyContent: 'space-between' }}>
         <View>
-
-          <FormItem
-            label='Remember To'
-            value={memory}
-            onChange={this.onChange}
-            onChangeKey='memory'
-          />
+          <FormItem label='Remember To' value={memory} onChange={this.onChange} onChangeKey='memory' />
 
           <FormLabel>How Often</FormLabel>
-          {
-            frequencies.map((freq) =>
-              <CheckBox
-                key={freq}
-                title={upperFirst(freq)}
-                checkedIcon='dot-circle-o'
-                uncheckedIcon='circle-o'
-                checked={frequency === freq}
-                onPress={() => this.onPress(freq)}
-                checkedColor='#F6C143'
-              />)
-          }
+          {frequencies.map(freq => (
+            <CheckBox
+              key={freq}
+              title={upperFirst(freq)}
+              checkedIcon='dot-circle-o'
+              uncheckedIcon='circle-o'
+              checked={frequency === freq}
+              onPress={() => this.onPress(freq)}
+              checkedColor='#F6C143'
+            />
+          ))}
         </View>
       </Container>
     )
@@ -113,4 +135,3 @@ class AddNewMemory extends React.Component {
 }
 
 export default connect(undefined, { addMemory })(AddNewMemory)
-
