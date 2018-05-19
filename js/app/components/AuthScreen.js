@@ -24,6 +24,7 @@ class AuthScreen extends React.Component {
       const { accessToken } = await auth0.webAuth.authorize({
         scope: 'openid profile email',
         audience: `https://${config.auth0Domain}/userinfo`,
+        connection: 'Username-Password-Authentication',
       })
       const { email } = await auth0.auth.userInfo({ token: accessToken })
       this.props.setUser(email)
