@@ -4,6 +4,7 @@ import * as Animatable from 'react-native-animatable'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Menu, MenuProvider, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu'
+import { Platform } from 'react-native'
 import Auth0 from 'react-native-auth0'
 import config from '../config'
 
@@ -38,7 +39,9 @@ const SettingsMenu = ({ setUser, navigation }) => (
         <MenuOption
           text='Logout'
           onSelect={async () => {
-            await auth0.webAuth.clearSession({})
+            if (Platform.OS === 'ios') {
+              await auth0.webAuth.clearSession({})
+            }
             setUser(null)
             navigation.navigate('Auth')
           }}

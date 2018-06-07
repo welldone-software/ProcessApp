@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import styled from 'styled-components/native'
 import Icon from 'react-native-vector-icons/Entypo'
@@ -32,7 +32,9 @@ class ModalScreen extends React.Component {
           <Button
             style={{ fontSize: 16 }}
             onPress={async () => {
-              await auth0.webAuth.clearSession({})
+              if (Platform.OS === 'ios') {
+                await auth0.webAuth.clearSession({})
+              }
               this.props.setUser(null)
               this.props.navigation.navigate('Auth')
             }}

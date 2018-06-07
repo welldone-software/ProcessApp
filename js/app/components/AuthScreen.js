@@ -1,7 +1,7 @@
 // import { AuthSession } from 'expo'
 import React from 'react'
 import { connect } from 'react-redux'
-import { Alert, Button, StyleSheet, Text, View } from 'react-native'
+import { Alert, Button, StyleSheet, Text, View, Platform } from 'react-native'
 import Auth0 from 'react-native-auth0'
 import config from '../config'
 import { setUser } from '../store/actions'
@@ -21,15 +21,21 @@ class AuthScreen extends React.Component {
 
   _loginWithAuth0 = async () => {
     try {
-      const { accessToken } = await auth0.webAuth.authorize({
+      const authParams = {
         scope: 'openid profile email',
         audience: `https://${config.auth0Domain}/userinfo`,
         connection: 'Username-Password-Authentication',
-      })
+      }
+
+      if (Platform.OS === 'android') {
+        authParams.prompt = 'login'
+      }
+      const { accessToken } = await auth0.webAuth.authorize(authParams)
       const { email } = await auth0.auth.userInfo({ token: accessToken })
       this.props.setUser(email)
       this.goToApp()
     } catch (error) {
+      console.log(error)
       Alert.alert('Error', error.message)
     }
   }
