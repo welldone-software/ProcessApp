@@ -1,6 +1,6 @@
 import React from 'react'
-import { View } from 'react-native'
 import { map, pick } from 'lodash'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { connect } from 'react-redux'
 import Container from '../shared/Container'
 import FormItem from '../shared/FormItem'
@@ -8,7 +8,11 @@ import { addGoal } from '../store/actions'
 import SaveButton from '../shared/SaveButton'
 
 class AddNewGoal extends React.Component {
-  static navigationOptions = ({ navigation: { state: { params } } }) => ({
+  static navigationOptions = ({
+    navigation: {
+      state: { params },
+    },
+  }) => ({
     headerRight: <SaveButton title='Save' onPress={() => params && params.save()} />,
   })
 
@@ -55,7 +59,7 @@ class AddNewGoal extends React.Component {
     const { goal } = this.state
     return (
       <Container style={{ justifyContent: 'space-between' }}>
-        <View>
+        <KeyboardAwareScrollView>
           {map(pick(goal, ['aspiration', 'value', 'barrier']), (value, key) => (
             <FormItem key={key} label={key} value={value} onChange={this.onChange} />
           ))}
@@ -68,7 +72,7 @@ class AddNewGoal extends React.Component {
           />
 
           <FormItem label='Then' value={goal.then} onChange={this.onChange} onChangeKey='then' />
-        </View>
+        </KeyboardAwareScrollView>
       </Container>
     )
   }
