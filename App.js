@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NavigationActions } from 'react-navigation'
 import { Provider, connect } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
-
+import SplashScreen from 'react-native-splash-screen'
 import AppNavigator from './js/app/components/AppNavigator'
 import configureStore from './js/app/store/configureStore'
 
@@ -19,6 +19,10 @@ const enhance = connect(({ navigation, appReducer }) => ({ navigation, appReduce
 const ConnectedNavigator = enhance(({ dispatch, navigation: state, appReducer }) => <AppNavigator />)
 
 export default class App extends Component<{}> {
+  componentDidMount() {
+    setTimeout(() => SplashScreen.hide(), 500)
+  }
+
   render() {
     return (
       <Provider store={store}>
