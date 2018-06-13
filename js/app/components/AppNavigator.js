@@ -1,6 +1,6 @@
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import GoalsScreen from './GoalsScreen'
-import AddNewGoal from './AddNewGoal'
+import GoalFormScreen from './GoalFormScreen'
 import AddNewMemory from './AddNewMemory'
 import MemoriesScreen from './MemoriesScreen'
 import AboutScreen from './AboutScreen'
@@ -20,9 +20,12 @@ const AppNavigator = StackNavigator({
     }),
   },
   AddNewGoal: {
-    screen: AddNewGoal,
-    navigationOptions: { title: 'Add New Goal' },
+    screen: GoalFormScreen,
+    navigationOptions: ({ navigation }) => ({
+      title: navigation.getParam('goal') ? 'Edit Goal' : 'Add New Goal',
+    }),
   },
+
   AddNewMemory: {
     screen: AddNewMemory,
     navigationOptions: { title: 'Add New Memory' },
