@@ -88,7 +88,17 @@ class AddNewMemory extends React.Component {
 
   schedulePushNotifications = data => {
     const time = new Date()
-    time.setSeconds(time.getSeconds() + 10)
+    let addedSeconds = 0
+    if (data.frequency === 'day') {
+      addedSeconds = 86400
+    }
+    if (data.frequency === 'week') {
+      addedSeconds = 604800
+    }
+    if (data.frequency === 'month') {
+      addedSeconds = 2629743
+    }
+    time.setSeconds(time.getSeconds() + addedSeconds)
     const localNotification = {
       title: 'Memory Reminder',
       message: data.memory,
