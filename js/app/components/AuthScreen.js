@@ -1,7 +1,7 @@
 // import { AuthSession } from 'expo'
 import React from 'react'
 import { connect } from 'react-redux'
-import { Alert, Button, StyleSheet, Text, View, Platform } from 'react-native'
+import { Button, StyleSheet, Text, View, Platform } from 'react-native'
 import Auth0 from 'react-native-auth0'
 import config from '../config'
 import { setUser } from '../store/actions'
@@ -36,7 +36,6 @@ class AuthScreen extends React.Component {
       this.goToApp()
     } catch (error) {
       console.log(error)
-      Alert.alert('Error', error.message)
     }
   }
 
