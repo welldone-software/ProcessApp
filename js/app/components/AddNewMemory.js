@@ -108,7 +108,8 @@ class AddNewMemory extends React.Component {
       vibrate: true,
       date: time,
       playSound: false,
-      repeatType: 'day',
+      repeatType: 'time',
+      repeatTime: addedSeconds * 1000, // in milis
     }
 
     return PushNotification.localNotificationSchedule(localNotification)
