@@ -81,7 +81,7 @@ class AddNewGoal extends React.Component {
         enableOnAndroid
         keyboardShouldPersistTaps='handled'
       >
-        {map(pick(goal, ['aspiration', 'value', 'barrier']), (value, key) => (
+        {map(pick(goal, ['aspiration', 'barrier']), (value, key) => (
           <FormItem key={key} label={key} value={value} onChange={this.onChange} />
         ))}
 

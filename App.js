@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { NavigationActions } from 'react-navigation'
+import { I18nManager } from 'react-native'
 import { Provider, connect } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import SplashScreen from 'react-native-splash-screen'
@@ -17,6 +18,8 @@ const { store, persistor } = configureStore(navigation)
 
 const enhance = connect(({ navigation, appReducer }) => ({ navigation, appReducer }))
 const ConnectedNavigator = enhance(({ dispatch, navigation: state, appReducer }) => <AppNavigator />)
+
+I18nManager.allowRTL(false)
 
 export default class App extends Component<{}> {
   componentDidMount() {

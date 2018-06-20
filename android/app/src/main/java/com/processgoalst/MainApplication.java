@@ -11,6 +11,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.facebook.react.modules.i18nmanager.I18nUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,6 +49,8 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+     I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
+            sharedI18nUtilInstance.allowRTL(getApplicationContext(), false);
     SoLoader.init(this, /* native exopackage */ false);
   }
 }
