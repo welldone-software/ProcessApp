@@ -9,6 +9,7 @@ import Container from '../shared/Container'
 import RightAddButton from '../shared/RightAddButton'
 import AboutButton from '../shared/AboutButton'
 import DeleteButtonBase from '../shared/DeleteButton'
+import EditButtonBase from '../shared/EditButton'
 import { ItemContainer, List, ListText } from '../shared/style'
 import { removeGoal, updateGoal } from '../store/actions'
 
@@ -20,6 +21,12 @@ const DeleteButton = styled(DeleteButtonBase)`
   position: absolute;
   top: -1px;
   right: 1px;
+`
+
+const EditButton = styled(EditButtonBase)`
+  position: absolute;
+  top: 4px;
+  left: 8px;
 `
 
 class GoalsScreen extends React.Component {
@@ -62,7 +69,9 @@ class GoalsScreen extends React.Component {
   renderGoal = ({ item }) => (
     <ItemContainer>
       <DeleteButton onPress={() => this.props.removeGoal(item)} />
-      <ListText onPress={() => this.props.navigation.navigate('AddNewGoal', { goal: item })}>
+      <EditButton onPress={() => this.props.navigation.navigate('AddNewGoal', { goal: item })} />
+
+      <ListText>
         {item.aspiration}
       </ListText>
 
