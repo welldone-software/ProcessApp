@@ -1,4 +1,4 @@
-package com.processgoalst;
+package tabono.processgoalst;
 
 import android.app.Application;
 
